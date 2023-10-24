@@ -1,0 +1,757 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-module-flags: -target arm64-apple-ios12.4 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Sybrin_iOS_Common
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import CommonCrypto
+import DeveloperToolsSupport
+import Foundation
+import Network
+import Photos
+import Swift
+import SwiftUI
+@_exported import Sybrin_iOS_Common
+import SystemConfiguration
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func showToast(message: Swift.String, with options: Sybrin_iOS_Common.ToastOptions = ToastOptions())
+  @_Concurrency.MainActor(unsafe) public func subview(where searchPredicate: (UIKit.UIView) -> Swift.Bool) -> UIKit.UIView?
+}
+public enum CameraOutputType {
+  case UIImage
+  case CVPixelBuffer
+  case CMSampleBuffer
+  case Unspecified
+  public static func == (a: Sybrin_iOS_Common.CameraOutputType, b: Sybrin_iOS_Common.CameraOutputType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class CommonUI {
+  public static var labelStartPoint: CoreFoundation.CGPoint {
+    get
+    set
+  }
+  public static var subLabelStartPoint: CoreFoundation.CGPoint {
+    get
+    set
+  }
+  weak public static var delegate: (any Sybrin_iOS_Common.CommonUIDelegate)?
+  public static func addOverlay(to view: UIKit.UIView)
+  public static func removeOverlay()
+  public static func loadingAnim(to view: UIKit.UIView?)
+  public static func loadingAnimStop()
+  public static func addRectCutouts(addBorder: Swift.Bool = false, withRoundedCorners: (width: CoreFoundation.CGFloat, height: CoreFoundation.CGFloat)? = nil, _ cutoutViews: UIKit.UIView...)
+  public static func addOvalCutouts(addBorder: Swift.Bool = false, _ cutoutViews: UIKit.UIView...)
+  public static func addOutsideCornerBorders(to view: UIKit.UIView)
+  public static func addInsideCornerBorders(to view: UIKit.UIView)
+  public static func flashBorders(withColor color: UIKit.UIColor, animationTimeSeconds: Swift.Double = 1, repeatCount: Swift.Float = 3)
+  public static func flashOverlay(withColor color: UIKit.UIColor, animationTimeSeconds: Swift.Double = 1, repeatCount: Swift.Float = 3)
+  public static func updateLabelText(view: UIKit.UIView? = nil, to labelText: Swift.String, animationColor: UIKit.UIColor? = .green, forceAnimation: Swift.Bool = false)
+  public static func updateSubLabelText(view: UIKit.UIView? = nil, to labelText: Swift.String, animationColor: UIKit.UIColor? = .green, forceAnimation: Swift.Bool = false)
+  public static func addFlashLightButton(to view: UIKit.UIView?)
+  public static func addBackButton(to view: UIKit.UIView?)
+  public static func addScanTitle(view: UIKit.UIView?, yMargin: Swift.Float = 45)
+  @objc deinit
+}
+public struct BigUInt : Swift.UnsignedInteger {
+  public typealias Word = Swift.UInt
+  public init()
+  public init(words: [Sybrin_iOS_Common.BigUInt.Word])
+  public typealias Magnitude = Sybrin_iOS_Common.BigUInt
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public static var isSigned: Swift.Bool {
+    get
+  }
+  public func signum() -> Sybrin_iOS_Common.BigUInt
+}
+public struct UIUtilities {
+  public static func fixOrientation(_ image: UIKit.UIImage, to orientation: UIKit.UIImage.Orientation? = nil) -> UIKit.UIImage
+  public static func rotateImagePortrait(_ image: UIKit.UIImage) -> UIKit.UIImage
+  public static func imageOrientation(fromDeviceOrientation deviceOrientation: UIKit.UIDeviceOrientation = UIDevice.current.orientation, fromCameraPosition cameraPosition: AVFoundation.AVCaptureDevice.Position = .back) -> UIKit.UIImage.Orientation
+  public static func imageFromSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer, fixOrientation: Swift.Bool = false) -> UIKit.UIImage
+}
+public enum LicenseSDKType : Swift.Int, Swift.Encodable {
+  case Identity
+  case Biometrics
+  case WebAPI
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public func quotientAndRemainder(dividingBy y: Sybrin_iOS_Common.BigUInt) -> (quotient: Sybrin_iOS_Common.BigUInt, remainder: Sybrin_iOS_Common.BigUInt)
+  public static func / (x: Sybrin_iOS_Common.BigUInt, y: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public static func % (x: Sybrin_iOS_Common.BigUInt, y: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public static func /= (x: inout Sybrin_iOS_Common.BigUInt, y: Sybrin_iOS_Common.BigUInt)
+  public static func %= (x: inout Sybrin_iOS_Common.BigUInt, y: Sybrin_iOS_Common.BigUInt)
+}
+extension Sybrin_iOS_Common.BigInt {
+  public func quotientAndRemainder(dividingBy y: Sybrin_iOS_Common.BigInt) -> (quotient: Sybrin_iOS_Common.BigInt, remainder: Sybrin_iOS_Common.BigInt)
+  public static func / (a: Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func % (a: Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public func modulus(_ mod: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+}
+extension Sybrin_iOS_Common.BigInt {
+  public static func /= (a: inout Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt)
+  public static func %= (a: inout Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt)
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public func power(_ exponent: Swift.Int) -> Sybrin_iOS_Common.BigUInt
+  public func power(_ exponent: Sybrin_iOS_Common.BigUInt, modulus: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+}
+extension Sybrin_iOS_Common.BigInt {
+  public func power(_ exponent: Swift.Int) -> Sybrin_iOS_Common.BigInt
+  public func power(_ exponent: Sybrin_iOS_Common.BigInt, modulus: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+}
+public struct AccessHandler {
+  public static func checkPhotoLibraryAccess(_ permissionGranted: (Swift.Bool) -> Swift.Void)
+  public static func checkCameraAccess(_ permissionGranted: (Swift.Bool) -> Swift.Void)
+  public static func showUIAlertForPhotoLibraryPermission(_ viewController: UIKit.UIViewController, completion: @escaping () -> Swift.Void)
+  public static func showUIAlertForCameraPermission(_ viewController: UIKit.UIViewController, completion: @escaping () -> Swift.Void)
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public static func >>= <Other>(lhs: inout Sybrin_iOS_Common.BigUInt, rhs: Other) where Other : Swift.BinaryInteger
+  public static func <<= <Other>(lhs: inout Sybrin_iOS_Common.BigUInt, rhs: Other) where Other : Swift.BinaryInteger
+  public static func >> <Other>(lhs: Sybrin_iOS_Common.BigUInt, rhs: Other) -> Sybrin_iOS_Common.BigUInt where Other : Swift.BinaryInteger
+  public static func << <Other>(lhs: Sybrin_iOS_Common.BigUInt, rhs: Other) -> Sybrin_iOS_Common.BigUInt where Other : Swift.BinaryInteger
+}
+extension Sybrin_iOS_Common.BigInt {
+  public static func &<< (left: Sybrin_iOS_Common.BigInt, right: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func &<<= (left: inout Sybrin_iOS_Common.BigInt, right: Sybrin_iOS_Common.BigInt)
+  public static func &>> (left: Sybrin_iOS_Common.BigInt, right: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func &>>= (left: inout Sybrin_iOS_Common.BigInt, right: Sybrin_iOS_Common.BigInt)
+  public static func << <Other>(lhs: Sybrin_iOS_Common.BigInt, rhs: Other) -> Sybrin_iOS_Common.BigInt where Other : Swift.BinaryInteger
+  public static func <<= <Other>(lhs: inout Sybrin_iOS_Common.BigInt, rhs: Other) where Other : Swift.BinaryInteger
+  public static func >> <Other>(lhs: Sybrin_iOS_Common.BigInt, rhs: Other) -> Sybrin_iOS_Common.BigInt where Other : Swift.BinaryInteger
+  public static func >>= <Other>(lhs: inout Sybrin_iOS_Common.BigInt, rhs: Other) where Other : Swift.BinaryInteger
+}
+extension Swift.StringProtocol {
+  public func index(from: Swift.Int) -> Self.Index
+  public func substring(from: Swift.Int) -> Swift.String
+  public func substring(to: Swift.Int) -> Swift.String
+  public func substring(from: Swift.Int, to: Swift.Int) -> Swift.String
+  public func substring(from: Swift.Int, length: Swift.Int) -> Swift.String
+  public func substring(from: Self.Index, to: Self.Index) -> Swift.String
+  public func substring(with r: Swift.Range<Swift.Int>) -> Swift.String
+  public func indexOf(str: Swift.String) -> Swift.Int?
+  public func indexOf(char: Swift.Character) -> Swift.Int?
+  public func indexLower<S>(of string: S, options: Swift.String.CompareOptions = []) -> Self.Index? where S : Swift.StringProtocol
+  public func indexUpper<S>(of string: S, options: Swift.String.CompareOptions = []) -> Self.Index? where S : Swift.StringProtocol
+}
+extension UIKit.UIDeviceOrientation {
+  public var stringValue: Swift.String {
+    get
+  }
+}
+public struct ToastOptions {
+  public var duration: Swift.Double
+  public var animation: Swift.Double
+  public var cornerRadius: CoreFoundation.CGFloat
+  public var backgroundColor: UIKit.UIColor
+  public var textColor: UIKit.UIColor
+  public init()
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public mutating func subtractReportingOverflow(_ b: Sybrin_iOS_Common.BigUInt, shiftedBy shift: Swift.Int = 0) -> Swift.Bool
+  public func subtractingReportingOverflow(_ other: Sybrin_iOS_Common.BigUInt, shiftedBy shift: Swift.Int) -> (partialValue: Sybrin_iOS_Common.BigUInt, overflow: Swift.Bool)
+  public func subtractingReportingOverflow(_ other: Sybrin_iOS_Common.BigUInt) -> (partialValue: Sybrin_iOS_Common.BigUInt, overflow: Swift.Bool)
+  public mutating func subtract(_ other: Sybrin_iOS_Common.BigUInt, shiftedBy shift: Swift.Int = 0)
+  public func subtracting(_ other: Sybrin_iOS_Common.BigUInt, shiftedBy shift: Swift.Int = 0) -> Sybrin_iOS_Common.BigUInt
+  public mutating func decrement(shiftedBy shift: Swift.Int = 0)
+  public static func - (a: Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public static func -= (a: inout Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt)
+}
+extension Sybrin_iOS_Common.BigInt {
+  public mutating func negate()
+  public static func - (a: Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func -= (a: inout Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt)
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public static func randomInteger(withMaximumWidth width: Swift.Int) -> Sybrin_iOS_Common.BigUInt
+  public static func randomInteger(withExactWidth width: Swift.Int) -> Sybrin_iOS_Common.BigUInt
+  public static func randomInteger(lessThan limit: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+}
+public struct Environment : Swift.Codable {
+  public var licenseLegacyURL: Swift.String?
+  public var licenseAuthorizeUsername: Swift.String?
+  public var licenseAuthorizeAPIKey: Swift.String?
+  public var licenseAuthorizeURL: Swift.String?
+  public var licenseValidateURL: Swift.String?
+  public var licenseUpdateCountURL: Swift.String?
+  public init()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol CommonUIDelegate : AnyObject {
+  func handleBackButtonPressed()
+}
+extension Foundation.Date {
+  public func dateToString(withFormat format: Swift.String = "yyyy-MM-dd", timezone: Foundation.TimeZone? = nil) -> Swift.String
+}
+extension Foundation.NSRegularExpression {
+  convenience public init(_ pattern: Swift.String)
+  public func matches(_ string: Swift.String) -> Swift.Bool
+}
+extension CoreMedia.CMSampleBuffer {
+  public var width: Swift.Int {
+    get
+  }
+  public var height: Swift.Int {
+    get
+  }
+  public var size: CoreFoundation.CGSize {
+    get
+  }
+  public func toUIImage(fixOrientation: Swift.Bool = false) -> UIKit.UIImage
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public init?<T>(exactly source: T) where T : Swift.BinaryFloatingPoint
+  public init<T>(_ source: T) where T : Swift.BinaryFloatingPoint
+}
+extension Sybrin_iOS_Common.BigInt {
+  public init?<T>(exactly source: T) where T : Swift.BinaryFloatingPoint
+  public init<T>(_ source: T) where T : Swift.BinaryFloatingPoint
+}
+extension Swift.BinaryFloatingPoint where Self.RawExponent : Swift.FixedWidthInteger, Self.RawSignificand : Swift.FixedWidthInteger {
+  public init(_ value: Sybrin_iOS_Common.BigInt)
+  public init(_ value: Sybrin_iOS_Common.BigUInt)
+}
+@_hasMissingDesignatedInitializers final public class NetworkHandler {
+  public static let shared: Sybrin_iOS_Common.NetworkHandler
+  final public var isInternetAccessAvailable: Swift.Bool {
+    get
+  }
+  final public func isConnectedToNetwork() -> Swift.Bool
+  final public func sendRequest(request: Foundation.URLRequest, validateResponseCode: Swift.Int? = nil, completion: @escaping (Swift.Result<(data: Foundation.Data, response: Foundation.URLResponse), Sybrin_iOS_Common.NetworkError>) -> Swift.Void)
+  @objc deinit
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public func greatestCommonDivisor(with b: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public func inverse(_ modulus: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt?
+}
+extension Sybrin_iOS_Common.BigInt {
+  public func greatestCommonDivisor(with b: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public func inverse(_ modulus: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt?
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public func isStrongProbablePrime(_ base: Sybrin_iOS_Common.BigUInt) -> Swift.Bool
+  public func isPrime(rounds: Swift.Int = 10) -> Swift.Bool
+}
+extension Sybrin_iOS_Common.BigInt {
+  public func isStrongProbablePrime(_ base: Sybrin_iOS_Common.BigInt) -> Swift.Bool
+  public func isPrime(rounds: Swift.Int = 10) -> Swift.Bool
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers final public class CameraHandler : ObjectiveC.NSObject, AVFoundation.AVCaptureVideoDataOutputSampleBufferDelegate, AVFoundation.AVCapturePhotoCaptureDelegate {
+  final weak public var delegate: (any Sybrin_iOS_Common.CameraDelegate)?
+  final public var cameraPosition: AVFoundation.AVCaptureDevice.Position {
+    get
+    set
+  }
+  final public var outputType: Sybrin_iOS_Common.CameraOutputType {
+    get
+    set
+  }
+  final public var isCameraBusy: Swift.Bool {
+    get
+  }
+  final public var capturedImage: UIKit.UIImage?
+  final public var captureBuffer: CoreVideo.CVPixelBuffer?
+  public init?(_ view: UIKit.UIView, cameraPosition: AVFoundation.AVCaptureDevice.Position = .back, cameraOptions: Sybrin_iOS_Common.CameraOptions = CameraOptions())
+  @objc deinit
+  final public func cameraTakePicture(_ flashMode: AVFoundation.AVCaptureDevice.FlashMode = .auto)
+  @objc final public func captureOutput(_ output: AVFoundation.AVCaptureOutput, didOutput sampleBuffer: CoreMedia.CMSampleBuffer, from connection: AVFoundation.AVCaptureConnection)
+  @objc final public func photoOutput(_ output: AVFoundation.AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVFoundation.AVCapturePhoto, error: (any Swift.Error)?)
+  public static func toggleFlashLight() -> Swift.Bool
+}
+final public class LicenseHandler {
+  final public var sdkType: Sybrin_iOS_Common.LicenseSDKType? {
+    get
+    set
+  }
+  final public var initialized: Swift.Bool {
+    get
+  }
+  final public var licenseID: Swift.String? {
+    get
+  }
+  public init()
+  final public func initialize(with key: Swift.String) -> Swift.Result<Swift.Bool, Sybrin_iOS_Common.LicenseError>
+  final public func validateLicense(forceOnlineValidation: Swift.Bool = false) -> Swift.Result<Swift.Bool, Sybrin_iOS_Common.LicenseError>
+  final public func updateCount(f feature: Swift.String = "", pM phoneModel: Swift.String = UIDevice.modelName, oV osVersion: Swift.String = UIDevice.current.systemVersion) -> Swift.Result<Swift.Bool, Sybrin_iOS_Common.LicenseError>
+  @objc deinit
+}
+extension AVFoundation.AVCaptureDevice.Position {
+  public var stringValue: Swift.String {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public subscript(bitAt index: Swift.Int) -> Swift.Bool {
+    get
+    set
+  }
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public var bitWidth: Swift.Int {
+    get
+  }
+  public var leadingZeroBitCount: Swift.Int {
+    get
+  }
+  public var trailingZeroBitCount: Swift.Int {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigInt {
+  public var bitWidth: Swift.Int {
+    get
+  }
+  public var trailingZeroBitCount: Swift.Int {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public struct Words : Swift.RandomAccessCollection {
+    public var startIndex: Swift.Int {
+      get
+    }
+    public var endIndex: Swift.Int {
+      get
+    }
+    public subscript(index: Swift.Int) -> Sybrin_iOS_Common.BigUInt.Word {
+      get
+    }
+    public typealias Element = Sybrin_iOS_Common.BigUInt.Word
+    public typealias Index = Swift.Int
+    public typealias Indices = Swift.Range<Swift.Int>
+    public typealias Iterator = Swift.IndexingIterator<Sybrin_iOS_Common.BigUInt.Words>
+    public typealias SubSequence = Swift.Slice<Sybrin_iOS_Common.BigUInt.Words>
+  }
+  public var words: Sybrin_iOS_Common.BigUInt.Words {
+    get
+  }
+  public init<Words>(words: Words) where Words : Swift.Sequence, Words.Element == Swift.UInt
+}
+extension Sybrin_iOS_Common.BigInt {
+  public struct Words : Swift.RandomAccessCollection {
+    public typealias Indices = Swift.CountableRange<Swift.Int>
+    public var count: Swift.Int {
+      get
+    }
+    public var indices: Sybrin_iOS_Common.BigInt.Words.Indices {
+      get
+    }
+    public var startIndex: Swift.Int {
+      get
+    }
+    public var endIndex: Swift.Int {
+      get
+    }
+    public subscript(index: Swift.Int) -> Swift.UInt {
+      get
+    }
+    public typealias Element = Swift.UInt
+    public typealias Index = Swift.Int
+    public typealias Iterator = Swift.IndexingIterator<Sybrin_iOS_Common.BigInt.Words>
+    public typealias SubSequence = Swift.Slice<Sybrin_iOS_Common.BigInt.Words>
+  }
+  public var words: Sybrin_iOS_Common.BigInt.Words {
+    get
+  }
+  public init<S>(words: S) where S : Swift.Sequence, S.Element == Swift.UInt
+}
+public struct BigInt : Swift.SignedInteger {
+  public enum Sign {
+    case plus
+    case minus
+    public static func == (a: Sybrin_iOS_Common.BigInt.Sign, b: Sybrin_iOS_Common.BigInt.Sign) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public typealias Magnitude = Sybrin_iOS_Common.BigUInt
+  public typealias Word = Sybrin_iOS_Common.BigUInt.Word
+  public static var isSigned: Swift.Bool {
+    get
+  }
+  public var magnitude: Sybrin_iOS_Common.BigUInt
+  public var sign: Sybrin_iOS_Common.BigInt.Sign
+  public init(sign: Sybrin_iOS_Common.BigInt.Sign, magnitude: Sybrin_iOS_Common.BigUInt)
+  public var isZero: Swift.Bool {
+    get
+  }
+  public func signum() -> Sybrin_iOS_Common.BigInt
+}
+extension Swift.String {
+  public func log(_ level: Sybrin_iOS_Common.LogLevel, fromClass className: Swift.String = #file, inFunction functionName: Swift.String = #function, onLine lineNumber: Swift.Int = #line)
+  public func showToast(on view: UIKit.UIView, with options: Sybrin_iOS_Common.ToastOptions = ToastOptions())
+  public func stringToDate(withFormat format: Swift.String = "yyyy-MM-dd") -> Foundation.Date?
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.Comparable {
+  public static func compare(_ a: Sybrin_iOS_Common.BigUInt, _ b: Sybrin_iOS_Common.BigUInt) -> Foundation.ComparisonResult
+  public static func == (a: Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt) -> Swift.Bool
+  public static func < (a: Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt) -> Swift.Bool
+}
+extension Sybrin_iOS_Common.BigInt {
+  public static func == (a: Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt) -> Swift.Bool
+  public static func < (a: Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt) -> Swift.Bool
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public static let modelName: Swift.String
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public init?<T>(exactly source: T) where T : Swift.BinaryInteger
+  public init<T>(_ source: T) where T : Swift.BinaryInteger
+  public init<T>(truncatingIfNeeded source: T) where T : Swift.BinaryInteger
+  public init<T>(clamping source: T) where T : Swift.BinaryInteger
+}
+extension Sybrin_iOS_Common.BigInt {
+  public init()
+  public init(_ integer: Sybrin_iOS_Common.BigUInt)
+  public init<T>(_ source: T) where T : Swift.BinaryInteger
+  public init?<T>(exactly source: T) where T : Swift.BinaryInteger
+  public init<T>(clamping source: T) where T : Swift.BinaryInteger
+  public init<T>(truncatingIfNeeded source: T) where T : Swift.BinaryInteger
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.ExpressibleByIntegerLiteral {
+  public init(integerLiteral value: Swift.UInt64)
+  public typealias IntegerLiteralType = Swift.UInt64
+}
+extension Sybrin_iOS_Common.BigInt : Swift.ExpressibleByIntegerLiteral {
+  public init(integerLiteral value: Swift.Int64)
+  public typealias IntegerLiteralType = Swift.Int64
+}
+public enum LicenseError : Swift.Error {
+  case NotStarted
+  case Expired
+  case Suspended
+  case IncorrectSDK
+  case IncorrectPlatform
+  case MaxUsageCountReached
+  case NoInternet
+  case FailedInternet(reason: Swift.String?)
+  case NotInitialized
+  case AlreadyInitialized
+  case DecodingKeyFailed
+  case InternalError
+  case Undetermined
+  public var message: Swift.String {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public static func + (a: Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public static func += (a: inout Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt)
+}
+extension Sybrin_iOS_Common.BigInt {
+  public static func + (a: Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func += (a: inout Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt)
+}
+extension AVFoundation.AVCaptureVideoOrientation {
+  public var stringValue: Swift.String {
+    get
+  }
+}
+@objc public enum LogLevel : Swift.Int {
+  case Verbose = 80
+  case Debug = 70
+  case ProtectedWarning = 60
+  case ProtectedError = 50
+  case Information = 40
+  case Warning = 30
+  case Error = 20
+  case Critical = 10
+  case None = 0
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct LogHandler {
+  public static var globalLogLevel: Sybrin_iOS_Common.LogLevel {
+    get
+    set
+  }
+  public static var logDebugInformation: Swift.Bool {
+    get
+    set
+  }
+  public static func requiresDevAccess(for logLevel: Sybrin_iOS_Common.LogLevel) -> Swift.Bool
+  public static func log(_ value: Swift.String, _ level: Sybrin_iOS_Common.LogLevel, fromClass className: Swift.String = #file, inFunction functionName: Swift.String = #function, onLine lineNumber: Swift.Int = #line)
+  public static func logTest()
+}
+extension UIKit.UIImage.Orientation {
+  public var stringValue: Swift.String {
+    get
+  }
+}
+public struct DeveloperSettings {
+  public static var developerAccessGranted: Swift.Bool {
+    get
+  }
+  public static func enableDeveloperAccess(token: Swift.String)
+  public static func disableDeveloperAccess()
+}
+public struct FrameworkConfiguration {
+  public static var configuration: (any Sybrin_iOS_Common.SybrinCommonConfiguration)? {
+    get
+    set
+  }
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigInt : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public mutating func multiply(byWord y: Sybrin_iOS_Common.BigUInt.Word)
+  public func multiplied(byWord y: Sybrin_iOS_Common.BigUInt.Word) -> Sybrin_iOS_Common.BigUInt
+  public mutating func multiplyAndAdd(_ x: Sybrin_iOS_Common.BigUInt, _ y: Sybrin_iOS_Common.BigUInt.Word, shiftedBy shift: Swift.Int = 0)
+  public func multiplied(by y: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public static var directMultiplicationLimit: Swift.Int
+  public static func * (x: Sybrin_iOS_Common.BigUInt, y: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public static func *= (a: inout Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt)
+}
+extension Sybrin_iOS_Common.BigInt {
+  public static func * (a: Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func *= (a: inout Sybrin_iOS_Common.BigInt, b: Sybrin_iOS_Common.BigInt)
+}
+extension UIKit.UIImage {
+  public func fixOrientation(to orientation: UIKit.UIImage.Orientation? = nil) -> UIKit.UIImage
+  public func rotateImagePortrait() -> UIKit.UIImage
+  public static func imageFromSampleBuffer(_ sampleBuffer: CoreMedia.CMSampleBuffer, fixOrientation: Swift.Bool = false) -> UIKit.UIImage
+}
+public protocol SwipeGestureDelegate : AnyObject {
+  func handleSwipeUp()
+  func handleSwipeDown()
+  func handleSwipeLeft()
+  func handleSwipeRight()
+}
+extension Sybrin_iOS_Common.SwipeGestureDelegate {
+  public func handleSwipeUp()
+  public func handleSwipeDown()
+  public func handleSwipeLeft()
+  public func handleSwipeRight()
+}
+extension Sybrin_iOS_Common.BigUInt {
+  prefix public static func ~ (a: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigUInt
+  public static func |= (a: inout Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt)
+  public static func &= (a: inout Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt)
+  public static func ^= (a: inout Sybrin_iOS_Common.BigUInt, b: Sybrin_iOS_Common.BigUInt)
+}
+extension Sybrin_iOS_Common.BigInt {
+  prefix public static func ~ (x: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func & (lhs: inout Sybrin_iOS_Common.BigInt, rhs: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func | (lhs: inout Sybrin_iOS_Common.BigInt, rhs: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func ^ (lhs: inout Sybrin_iOS_Common.BigInt, rhs: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt
+  public static func &= (lhs: inout Sybrin_iOS_Common.BigInt, rhs: Sybrin_iOS_Common.BigInt)
+  public static func |= (lhs: inout Sybrin_iOS_Common.BigInt, rhs: Sybrin_iOS_Common.BigInt)
+  public static func ^= (lhs: inout Sybrin_iOS_Common.BigInt, rhs: Sybrin_iOS_Common.BigInt)
+}
+public struct FileHandler {
+  public static func doesFileExist(_ fileName: Swift.String) -> Swift.Bool
+  public static func doesFolderExist(_ folderName: Swift.String) -> Swift.Bool
+  public static func createDirectory(_ directoryName: Swift.String)
+  public static func deleteDirectory(_ directoryName: Swift.String)
+  public static func writeToFile(_ pathToFile: Swift.String, _ data: Swift.String, _ encodeBase64: Swift.Bool = true)
+  public static func readFromFile(_ pathToFile: Swift.String, _ decodeBase64: Swift.Bool = true) -> Swift.String?
+}
+public struct CameraOptions {
+  public enum Preference {
+    case Resolution, FPS
+    public static func == (a: Sybrin_iOS_Common.CameraOptions.Preference, b: Sybrin_iOS_Common.CameraOptions.Preference) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var minimumResolution: CoreFoundation.CGSize
+  public var maximumResolution: CoreFoundation.CGSize?
+  public var minimumFramesPerSecond: Swift.Double
+  public var maximumFramesPerSecond: Swift.Float64?
+  public var include16by9AspectRatios: Swift.Bool
+  public var include4by3AspectRatios: Swift.Bool
+  public var includeOtherAspectRatios: Swift.Bool
+  public var preference: Sybrin_iOS_Common.CameraOptions.Preference
+  public init()
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.Strideable {
+  public typealias Stride = Sybrin_iOS_Common.BigInt
+  public func advanced(by n: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigUInt
+  public func distance(to other: Sybrin_iOS_Common.BigUInt) -> Sybrin_iOS_Common.BigInt
+}
+extension Sybrin_iOS_Common.BigInt : Swift.Strideable {
+  public typealias Stride = Sybrin_iOS_Common.BigInt
+  public func advanced(by n: Sybrin_iOS_Common.BigInt.Stride) -> Sybrin_iOS_Common.BigInt
+  public func distance(to other: Sybrin_iOS_Common.BigInt) -> Sybrin_iOS_Common.BigInt.Stride
+}
+@_hasMissingDesignatedInitializers final public class GestureHandler {
+  weak public static var delegate: (any Sybrin_iOS_Common.SwipeGestureDelegate)?
+  public static func addSwipeGesture(on view: UIKit.UIView, for direction: UIKit.UISwipeGestureRecognizer.Direction)
+  public static func removeSwipeGesture(from view: UIKit.UIView, for direction: UIKit.UISwipeGestureRecognizer.Direction)
+  @objc deinit
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public init?<S>(_ text: S, radix: Swift.Int = 10) where S : Swift.StringProtocol
+}
+extension Sybrin_iOS_Common.BigInt {
+  public init?<S>(_ text: S, radix: Swift.Int = 10) where S : Swift.StringProtocol
+}
+extension Swift.String {
+  public init(_ v: Sybrin_iOS_Common.BigUInt)
+  public init(_ v: Sybrin_iOS_Common.BigUInt, radix: Swift.Int, uppercase: Swift.Bool = false)
+  public init(_ value: Sybrin_iOS_Common.BigInt, radix: Swift.Int = 10, uppercase: Swift.Bool = false)
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.ExpressibleByStringLiteral {
+  public init(unicodeScalarLiteral value: Swift.UnicodeScalar)
+  public init(extendedGraphemeClusterLiteral value: Swift.String)
+  public init(stringLiteral value: Swift.StringLiteralType)
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.StringLiteralType
+  public typealias UnicodeScalarLiteralType = Swift.UnicodeScalar
+}
+extension Sybrin_iOS_Common.BigInt : Swift.ExpressibleByStringLiteral {
+  public init(unicodeScalarLiteral value: Swift.UnicodeScalar)
+  public init(extendedGraphemeClusterLiteral value: Swift.String)
+  public init(stringLiteral value: Swift.StringLiteralType)
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.StringLiteralType
+  public typealias UnicodeScalarLiteralType = Swift.UnicodeScalar
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigInt : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.CustomPlaygroundDisplayConvertible {
+  public var playgroundDescription: Any {
+    get
+  }
+}
+extension Sybrin_iOS_Common.BigInt : Swift.CustomPlaygroundDisplayConvertible {
+  public var playgroundDescription: Any {
+    get
+  }
+}
+public struct Base64 {
+  public static func encodeBase64String(_ stringToEncode: Swift.String) -> Foundation.Data?
+  public static func decodeBase64Data(_ data: Foundation.Data) -> Swift.String?
+}
+@_inheritsConvenienceInitializers @objc final public class CommonConstants : ObjectiveC.NSObject {
+  public static var capturedImage: UIKit.UIImage?
+  public static var captureBuffer: CoreVideo.CVPixelBuffer?
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct GalleryHandler {
+  public static func saveImage(_ image: UIKit.UIImage, name: Swift.String, inCustomDirectory: Swift.String? = nil, completion: @escaping (_ path: Swift.String) -> ())
+}
+public enum NetworkError : Swift.String, Swift.Error {
+  case BadRequest
+  case Error
+  case NilResponse
+  case IncorrectResponseCode
+  case NilData
+  case Parsing
+  case Undetermined
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol SybrinCommonConfiguration : AnyObject {
+  var overlayColor: UIKit.UIColor { get set }
+  var overlayLabelTextColor: UIKit.UIColor { get set }
+  var overlaySubLabelTextColor: UIKit.UIColor { get set }
+  var overlayBorderColor: UIKit.UIColor { get set }
+  var overlayBorderThickness: CoreFoundation.CGFloat { get set }
+  var overlayBorderLength: CoreFoundation.CGFloat { get set }
+  var overlayBlurStyle: UIKit.UIBlurEffect.Style { get set }
+  var overlayBlurIntensity: CoreFoundation.CGFloat { get set }
+  var cameraPosition: AVFoundation.AVCaptureDevice.Position { get set }
+  var environmentKey: Swift.String { get set }
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public func squareRoot() -> Sybrin_iOS_Common.BigUInt
+}
+extension Sybrin_iOS_Common.BigInt {
+  public func squareRoot() -> Sybrin_iOS_Common.BigInt
+}
+extension UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) public func showToast(message: Swift.String, with options: Sybrin_iOS_Common.ToastOptions = ToastOptions())
+}
+extension Sybrin_iOS_Common.BigInt : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension Sybrin_iOS_Common.BigUInt : Swift.Codable {
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public protocol CameraDelegate : AnyObject {
+  func capturePhoto(camera: Sybrin_iOS_Common.CameraHandler, image: UIKit.UIImage)
+  func processFrameUIImage(_ image: UIKit.UIImage)
+  func processFrameCVPixelBuffer(_ cvbuffer: CoreVideo.CVPixelBuffer)
+  func processFrameCMSampleBuffer(_ cmbuffer: CoreMedia.CMSampleBuffer)
+}
+extension Sybrin_iOS_Common.CameraDelegate {
+  public func capturePhoto(camera: Sybrin_iOS_Common.CameraHandler, image: UIKit.UIImage)
+  public func processFrameUIImage(_ image: UIKit.UIImage)
+  public func processFrameCVPixelBuffer(_ cvbuffer: CoreVideo.CVPixelBuffer)
+  public func processFrameCMSampleBuffer(_ cmbuffer: CoreMedia.CMSampleBuffer)
+}
+extension Sybrin_iOS_Common.BigUInt {
+  public init(_ buffer: Swift.UnsafeRawBufferPointer)
+  public init(_ data: Foundation.Data)
+  public func serialize() -> Foundation.Data
+}
+extension Sybrin_iOS_Common.BigInt {
+  public init(_ buffer: Swift.UnsafeRawBufferPointer)
+  public init(_ data: Foundation.Data)
+  public func serialize() -> Foundation.Data
+}
+@_hasMissingDesignatedInitializers final public class ToastHandler {
+  public static func show(message: Swift.String, view: UIKit.UIView, with options: Sybrin_iOS_Common.ToastOptions = ToastOptions())
+  @objc deinit
+}
+extension Sybrin_iOS_Common.CameraOutputType : Swift.Equatable {}
+extension Sybrin_iOS_Common.CameraOutputType : Swift.Hashable {}
+extension Sybrin_iOS_Common.LicenseSDKType : Swift.Equatable {}
+extension Sybrin_iOS_Common.LicenseSDKType : Swift.Hashable {}
+extension Sybrin_iOS_Common.LicenseSDKType : Swift.RawRepresentable {}
+extension Sybrin_iOS_Common.BigInt.Sign : Swift.Equatable {}
+extension Sybrin_iOS_Common.BigInt.Sign : Swift.Hashable {}
+extension Sybrin_iOS_Common.LogLevel : Swift.Equatable {}
+extension Sybrin_iOS_Common.LogLevel : Swift.Hashable {}
+extension Sybrin_iOS_Common.LogLevel : Swift.RawRepresentable {}
+extension Sybrin_iOS_Common.CameraOptions.Preference : Swift.Equatable {}
+extension Sybrin_iOS_Common.CameraOptions.Preference : Swift.Hashable {}
+extension Sybrin_iOS_Common.NetworkError : Swift.Equatable {}
+extension Sybrin_iOS_Common.NetworkError : Swift.Hashable {}
+extension Sybrin_iOS_Common.NetworkError : Swift.RawRepresentable {}
